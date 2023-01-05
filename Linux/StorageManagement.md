@@ -172,6 +172,96 @@
 
 ## Create and manage RAID devices
 
+### RAID 0
+    N number of disk with X storage space = N*X 
+    no redundant data, the disk is defective all the data init is lost
+### RAID 1
+    Mirrored array. one file is stored in all the disks.
+    a file is mirrored in all the disks
+### RAID 5
+    minimum 3 disk required
+    each disk has a parity of a file. (party: small information used to recover data)
+    if 1 disk fails. data can be recovered from other 2
+### RAID 6
+    minimum 4 disk required
+    each disk has a parity of a file. (party: small information used to recover data)
+    if 2 disk fails. data can be recovered from other 2
+
+### RAID 10 (1+0)
+    RAID0 { (RAID1{1TB + 1TB}=1TB)  +  (RAID1{1TB + 1TB}=1TB) } = 2TB
+
+    make sure remove LVM
+    sudo vgremove --force my_volume
+    sudo pvremove /dev/vdc dev/vdd dev/vde
+
+    sudo mdadm --create /dev/md0 --level=0 --raid-devices=3 /dev/vdc dev/vdd dev/vde
+    now /dev/md0 is new RAID storage space. we create file structure out of it as below
+    sudo mkdir.ext4 /dev/md0
+
+    to stop r deactivate a array
+    sudo mdadm --stop /dev/md0
+
+    on linux boot-up, linux scans for superblock, any devices have any information on them to raid array, if they have it will reassemble them at /dev/md127
+    to avoid the above we can wipe super block as below
+    sudo mdadm --zero-superblock /dev/vdc dev/vdd dev/vde
+
+    to add spare disk_partition_path
+    sudo mdadm --create /dev/md0 --level=1 --raid-devices=2 /dev/vdc dev/vdd 
+    sudo mdadm --manage /dev/md0 --add dev/vde
+    (or to do it together follow the bellow)
+    sudo mdadm --create /dev/md0 --level=1 --raid-devices=1 /dev/vdc dev/vdd --spare-devices=1 dev/vde
+
+    cat /proc/mdstat
+
+    sudo mdadm --manage /dev/md0 --remove /dev/vde
+
 ## Create, manage and diagnose advanced file system permissions
 
+    echo "file content" > exFile
+    sudo chown adm:ftp exFile
+    exFile (rw-rw-r--)
+
+    sudo setfacl --modify user:aaron:rw exFile
+    (now exFile is with adm owner and ftp group. still aaron can read and write  )
+    exFile (rw-rw-r--+)
+    getfacl exFile
+        user::rw-
+        group::rw-
+        other::r--
+        mask:rw-
+    mask is the maximum permission. if mask is r--. user, group, other can't write and execute. we can do this as bellow  
+    sudo setfacl --modify mask:r exFile 
+    sudo setfacl --remove user:aaron exFile 
+
+    mkdir dir1
+    setfacl --recursive -m user:aaron:rwx dir1/   (-m modify)
+    setfacl --recursive --remove user:aaron dir1/   (-m modify)
+
+    to append only mode
+    echo "this is old content" > newfile
+    echo "replace content" > newfile  (permission will be dined)
+    echo "replace content" >> newfile  (permited)
+
+    to change permission to immutable
+    even with sudo permission immutable files can be deleted
+    lsattr <filename> (to check is it immutable)
+    sudo chattr -i newfile
+
 ## Setup user and group disk quotas for file systems
+    sudo dnf install quota
+    sudo vim /etc/fstab
+        change to default,usrquota,grpquota 0 2
+    sudo systemctl reboot
+
+    sudo quotacheck --create-files --user --group /dev/vdb2
+    will create aquota.group aquota.user to keep track of how much each using storage space in /dev/vdb2
+
+    sudo quotaon /mnt/
+
+    sudo mkdir /mybackups/aaron/
+    sudo chown aaron:aaron /mybackups/aaron
+    fallocate --length 100M /mybackups/aaron/100Mfile
+    sudo edquota --user aaron
+    fallocate --length 60M /mybackups/aaron/60Mfile
+    sudo edquota --user aaron
+    sudo edquota --edit-perioda
