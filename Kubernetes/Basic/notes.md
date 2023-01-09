@@ -49,6 +49,8 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	<!--* Then edit the file to make the necessary changes, delete and re-create the pod. -->
 	kubectl edit pod <pod-name>
 
+	kubectl replace --force -f <pod-yam-file>
+
 ### YAML in Kubernetes
 	[pod-definition](./ymlFiles/pod-definition.yml)
 
