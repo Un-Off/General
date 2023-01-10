@@ -1,5 +1,5 @@
-apiVersion: vi
-kind: Pod  (type of object)
+apiVersion: v1
+kind: Pod
 metadata:
   name: myapp-pod
   labels:
