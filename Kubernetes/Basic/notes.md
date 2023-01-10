@@ -52,19 +52,19 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	kubectl replace --force -f <pod-yam-file>
 
 ### YAML in Kubernetes
-	[pod-definition](./ymlFiles/pod-definition.yml)
+[pod-definition](./ymlFiles/pod-definition.yml)
 
 ## Replication
 
 ### Replicationcontroller
-	[](./ymlFiles/rc-definition.yml)
+[rc-definition](./ymlFiles/rc-definition.yml)
 
 	<!--* commands -->
 	kubectl create -f rc-definition.yml
 	kubectl get replicationcontroller
 
 ### ReplicaSets
-	[](./ymlFiles/replicaset-definition.yml)
+[replicaset-definition](./ymlFiles/replicaset-definition.yml)
 
 	<!--* commands -->
 	
@@ -81,7 +81,7 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	kubectl scale --replicas=6 replicaset myapp-replicaset <!--? (preferred) -->
 
 ## Deployment
-	[](./ymlFiles/deployment-definition.yml)
+[deployment-definition](./ymlFiles/deployment-definition.yml)
 	
 	<!--* commands -->
 
@@ -118,7 +118,7 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	TargetPort
 	Port
 	NodePort
-	[](./ymlFiles/pod-definition.yml)
+[pod-definition](./ymlFiles/pod-definition.yml)
 
 	1.	kubectl create -f service-definition.yml
 	2.	kubectl get services
@@ -127,7 +127,7 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	minikube service myapp-service --url
 
 ### ClusterIP
-	[](./ymlFiles/pod-definition.yml)
+[pod-definition](./ymlFiles/pod-definition.yml)
 	change only the type : ClusterIP (it's the deafult)
 
 ### LoadBalancer
