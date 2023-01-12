@@ -118,7 +118,7 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	TargetPort
 	Port
 	NodePort
-[pod-definition](./ymlFiles/pod-definition.yml)
+[service-definition.yml](./ymlFiles/service-definition.yml)
 
 	1.	kubectl create -f service-definition.yml
 	2.	kubectl get services
@@ -127,7 +127,7 @@ Master responsible for Orchestration of worker nodes in a Cluster
 	minikube service myapp-service --url
 
 ### ClusterIP
-[pod-definition](./ymlFiles/pod-definition.yml)
+[service-definition.yml](./ymlFiles/service-definition.yml)
 	change only the type : ClusterIP (it's the deafult)
 
 ### LoadBalancer
