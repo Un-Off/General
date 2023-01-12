@@ -1,0 +1,17 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-job
+spec:
+  scheduler: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      completions: 3
+      parallelism: 3
+      template:
+        spec:
+          containers:
+            - image: kodekloud/throw-dice
+              name: throw-dice-job
+          restartPolicy: OnFailure
+      
