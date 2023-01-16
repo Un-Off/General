@@ -1,4 +1,5 @@
-## Secrets
+# Secrets
+
     DB_Host: mysql
     DB_User: root
     DB_Password: paswrd### Create Secret
@@ -18,8 +19,8 @@
         echo -n 'mysql' | base64
         echo -n 'bx1zcWw=' | base64 --decode
 
-### Secrets in Pods
-    
+## Secrets in Pods
+
     1. ENV
         envFrom:
           -  secretMapRef:
@@ -38,8 +39,9 @@
           -  name: app-secret-volume
              configMap:
                name:  app-secret
-    
-#### A quick note about Secrets!
+
+### A quick note about Secrets
+
     Remember that secrets encode data in base64 format. Anyone with the base64 encoded secret can easily decode it. As such the secrets can be considered as not very safe.
     The concept of safety of the Secrets is a bit confusing in Kubernetes. The [kubernetes documentation](https://kubernetes.io/docs/concepts/configuration/secret/) page and a lot of blogs out there refer to secrets as a “safer option” to store sensitive data. They are safer than storing in plain text as they reduce the risk of accidentally exposing passwords and other sensitive data. In my opinion it’s not the secret itself that is safe, it is the practices around it.
     Secrets are not encrypted, so it is not safer in that sense. However, some best practices around using secrets make it safer. 
@@ -54,4 +56,3 @@
     Read about the protections and risks of using secrets here
 
     Having said that, there are other better ways of handling sensitive data like passwords in Kubernetes, such as using tools like Helm Secrets, HashiCorp Vault. I hope to make a lecture on these in the future.
-    

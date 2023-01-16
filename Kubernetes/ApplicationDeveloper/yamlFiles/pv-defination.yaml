@@ -14,3 +14,20 @@ spec:
   awsElasticBlockStore:
     volumeID: <volume=id>
     fsType: ext4
+
+
+
+
+#PersistentVolume
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: pv-log
+# spec:
+#   accessModes:
+#     - ReadWriteMany
+#   capacity:
+#     storage: 100Mi
+#   hostPath:
+#     path: /pv/log
+#   persistentVolumeReclaimPolicy: Retain

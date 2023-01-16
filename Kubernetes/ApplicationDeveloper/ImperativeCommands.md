@@ -1,4 +1,5 @@
-# Certification Tip – Imperative Commands!
+# Certification Tip – Imperative Commands
+
     While you would be working mostly the declarative way – using definition files, imperative commands can help in getting one time tasks done quickly, as well as generate a definition template easily. This would help save considerable amount of time during your exams.
 
     Before we begin, familiarize with the two options that can come in handy while working with the below commands:
@@ -12,18 +13,16 @@
 
     Use the above two in combination to generate a resource definition file quickly, that you can then modify and create resources as required, instead of creating the files from scratch.
 
- 
-
 ## POD
+
     Create an NGINX Pod
     kubectl run nginx --image=nginx
 
     Generate POD Manifest YAML file (-o yaml). Don’t create it(–dry-run)
     kubectl run nginx --image=nginx --dry-run=client -o yaml
 
- 
-
 ## Deployment
+
     Create a deployment
     kubectl create deployment --image=nginx nginx    
 
@@ -41,9 +40,8 @@
 
     You can then update the YAML file with the replicas or any other field before creating the deployment.
 
- 
-
 ## Service
+
     Create a Service named redis-service of type ClusterIP to expose pod redis on port 6379
     kubectl expose pod redis --port=6379 --name redis-service --dry-run=client -o yaml
     (This will automatically use the pod’s labels as selectors)
@@ -63,8 +61,6 @@
 
     Both the above commands have their own challenges. While one of it cannot accept a selector the other cannot accept a node port. I would recommend going with the `kubectl expose` command. If you need to specify a node port, generate a definition file using the same command and manually input the nodeport before creating the service.
 
-    
+## Reference
 
-## Reference:
-
-    https://kubernetes.io/docs/reference/kubectl/conventions/
+[](https://kubernetes.io/docs/reference/kubectl/conventions/)
