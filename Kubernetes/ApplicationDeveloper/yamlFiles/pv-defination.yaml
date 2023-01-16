@@ -1,0 +1,16 @@
+#PersistentVolume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-volume
+spec:
+  accessModes:
+    - ReadWriteOnce
+#    - ReadOnlyMany
+#    - ReadWriteMany
+  capacity:
+    storage: 1Gi
+  
+  awsElasticBlockStore:
+    volumeID: <volume=id>
+    fsType: ext4

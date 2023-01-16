@@ -80,7 +80,9 @@
     apiVersion: v1
     kind: ServiceAccount
     metadata:
-      name: nginx-ingress-serviceaccount
+      name: ingress-serviceaccount
+
+
     # should contain right Roles, ClusterRoles and RoleBindings
     ```
 
