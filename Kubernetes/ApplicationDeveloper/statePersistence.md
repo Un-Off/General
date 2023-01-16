@@ -15,3 +15,8 @@
     delete pod -> pvc to claim pv space.
 
 ## Storage Classes
+
+[sc-deg](./yamlFiles/sc-definition.yaml)
+
+    no longer pv is required
+    create sc, add it name in pvc --> spec --> storageClassName: <sc_name>. pvc name in pod def

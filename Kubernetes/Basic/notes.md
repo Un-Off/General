@@ -186,3 +186,17 @@ Master responsible for Orchestration of worker nodes in a Cluster
  kubectl config set-context $(kubectl config current-context) --namespace=dev
 
  kubectl create -f computer-quota.yaml
+
+## Shortcuts
+
+| Aliases  | For                    |
+| -------- | --------------         |
+| po       | PODs                   |
+| rs       | ReplicaSets            |
+| deploy   | Deployments            |
+| svc      | services               |
+| ns       | Namespaces             |
+| netpol   | Network policies       |
+| pv       | Persistent Volumes     |
+| pvc      | PersistentVolumeClaims |
+| sa       | service accounts       |
